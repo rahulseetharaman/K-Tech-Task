@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "474130521741",
+    "firebase_url": "https://ktechtask.firebaseio.com",
+    "project_id": "ktechtask",
+    "storage_bucket": "ktechtask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474130521741:android:8e1172c81e36b38f",
+        "android_client_info": {
+          "package_name": "com.example.hp.k_tech_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "474130521741-5546k2m6sume9ho64nv1k1t00iaq7afd.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "474130521741-5546k2m6sume9ho64nv1k1t00iaq7afd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOjVOC-HCn4jRACK73s-VzyCavUpdalgk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
