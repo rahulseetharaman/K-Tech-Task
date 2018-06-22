@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 emailAddr=email.getText().toString().trim();
                 password=passwd.getText().toString().trim();
+                //emailAddr="test2@gmail.com";
+                //password="test23";
                 loginFunction(emailAddr,password);
 
             }
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isComplete())
                 {
-                    startActivity(new Intent(MainActivity.this,QuizActivity.class));
+                    startActivity(new Intent(MainActivity.this,UserMenuActivity.class));
                 }
                 else
                     Toast.makeText(getApplicationContext(),"Sign In Failed", Toast.LENGTH_SHORT).show();

@@ -67,6 +67,10 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"Registration Successful", Toast.LENGTH_SHORT).show();
                 }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),task.getException().toString(),Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

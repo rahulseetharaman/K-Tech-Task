@@ -20,7 +20,9 @@
         </activity>
         <activity android:name=".QuizActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ScoreCardActivity"></activity>
+        <activity android:name=".ScoreCardActivity" />
+        <activity android:name=".LeaderboardActivity" />
+        <activity android:name=".UserMenuActivity"></activity>
     </application>
 
 </manifest>

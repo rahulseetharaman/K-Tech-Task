@@ -2,6 +2,7 @@ package com.example.hp.k_tech_task;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.SharedPreferences;
@@ -21,6 +22,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +36,7 @@ import java.util.Collections;
 
 public class QuizActivity extends AppCompatActivity {
 
-    private static final String JSON_URL="https://opentdb.com/api.php?amount=1&category=9&type=multiple";
+    private static String JSON_URL="https://opentdb.com/api.php?amount=1&category=9&type=multiple";
     private static final String TAG="MYTAG";
     private TextView questionView;
     private RadioButton radio1,radio2,radio3,radio4;
@@ -43,9 +49,12 @@ public class QuizActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private int progressStatus=0;
+    FirebaseDatabase fdb;
+    DatabaseReference dbref;
     private FirebaseAuth mAuth;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         questionView=(TextView)findViewById(R.id.textView);
@@ -59,6 +68,9 @@ public class QuizActivity extends AppCompatActivity {
         questionView.setVisibility(View.INVISIBLE);
         nextQuestionBtn.setVisibility(View.INVISIBLE);
         mAuth=FirebaseAuth.getInstance();
+        fdb=FirebaseDatabase.getInstance();
+        dbref=fdb.getReference();
+        JSON_URL=JSON_URL+"&difficulty="+getIntent().getStringExtra("Difficulty");
         sharedPreferences=getSharedPreferences("SharedPref",MODE_MULTI_PROCESS);
         handler=new Handler();
         editor= sharedPreferences.edit();
@@ -92,7 +104,29 @@ public class QuizActivity extends AppCompatActivity {
             b.putString("Score",String.valueOf(score));
             if(mAuth.getCurrentUser() !=null)
             {
-                String email=mAuth.getCurrentUser().getEmail();
+                final String email=mAuth.getCurrentUser().getEmail().trim().split("\\.")[0];
+                String level=getIntent().getStringExtra("Difficulty").toUpperCase();
+                DatabaseReference leveldb=dbref.child(level);
+                leveldb.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.hasChild(email))
+                        {
+                            DataSnapshot user=dataSnapshot.child(email);
+                            Long oldScore=(Long)user.getValue();
+                            user.getRef().setValue(Math.max(oldScore,score));
+                        }
+                        else
+                        {
+                            dataSnapshot.child(email).getRef().setValue(score);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 Toast.makeText(getApplicationContext(),"Signing out "+email, Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
             }
@@ -157,7 +191,7 @@ public class QuizActivity extends AppCompatActivity {
                             radio2.setText(options.get(1));
                             radio3.setText(options.get(2));
                             radio4.setText(options.get(3));
-                            editor.putString("Correct_Answer",Html.fromHtml(question.getString("question")).toString());
+                            editor.putString("Correct_Answer",Html.fromHtml(question.getString("correct_answer")).toString());
                             editor.commit();
 
 
@@ -189,7 +223,7 @@ public class QuizActivity extends AppCompatActivity {
             Log.d(TAG, "Radio Button is null");
             return false;
         }
-        String selectedtext = r.getText().toString();
+        String selectedtext = r.getText().toString().trim();
         String answer=sharedPreferences.getString("Correct_Answer","Something");
         Log.d(TAG,answer+" "+selectedtext);
         return selectedtext.equals(answer);

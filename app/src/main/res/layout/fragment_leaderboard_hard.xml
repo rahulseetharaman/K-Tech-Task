@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LeaderboardEasy">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TableLayout
+        android:id="@+id/leadertable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp">
+
+        <TableRow
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/titleView"
+                android:layout_width="290dp"
+                android:layout_height="50dp"
+                android:text="Username"
+                android:textAlignment="gravity"
+                android:textSize="20dp"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+
+            <TextView
+                android:id="@+id/titleScore"
+                android:layout_width="96dp"
+                android:layout_height="50dp"
+                android:text="Score"
+                android:textSize="20dp"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/first"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/firstView"
+                android:layout_width="300dp"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/firstScore"
+                android:layout_width="86dp"
+                android:layout_height="50dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/second"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/secondView"
+                android:layout_width="300dp"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/secondScore"
+                android:layout_width="86dp"
+                android:layout_height="50dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/third"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/thirdView"
+                android:layout_width="300dp"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/thirdScore"
+                android:layout_width="86dp"
+                android:layout_height="50dp" />
+        </TableRow>
+
+    </TableLayout>
+</FrameLayout>
